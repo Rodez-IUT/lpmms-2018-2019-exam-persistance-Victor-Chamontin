@@ -37,6 +37,28 @@ Il est strictement interdit de modifier le code contenu dans les classes de test
 
 Récupérez le contenu du fichier ENONCE.md disponible à l'URL fourni par votre enseignant et insérez le à la suite de ce fichier 
 
+Question 1 :
+La garanti qu'apporte flush dans le bon fonctionnement de la requète est que flush va permettre de
+synchroniser le contexte persistant avec la base de données sous-jacante. Ainsi les modifications détectés par ce mécanisme 
+sont envoyées vers la base de données sous de forme de requète SQL. Lorsque une instance d'entité  entre dans l'état "détaché"
+, ses modifications ne sont plus prises en comptes    
+
+
+Question 2 :
+La méthode merge permet d'attacher l'entity à l'entité Manager courante. Ainsi cette opération permet d'associer
+une entité à une autre entity manager que celui qui a été utiliser pour créer ou lire. Ainsi cela permet
+d'insérer de nouveaux objets et de mettre à jour ceux existants.   
+
+Question 3 :
+Dans cette méthode, on essaye de faire un vérouillage lors de modification simultanée des projets.
+On prend un projet existante que l'on charge dans le contexte peristant actuel, puis on les modifies
+avec la transaction jdbc pour simuler l'accès courrant. Puis on modifie le projet de l'entity manager.
+On espère qu'il n'y ai pas d'exception.
+On modifie le projet en lui attribuant le titre de "New Title" puis avec une requète préparer on lui
+attribye l'id du projet 1.
+
+
+
 
 
 
