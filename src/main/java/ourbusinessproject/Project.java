@@ -9,7 +9,11 @@ public class Project {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+	//
     private Long id;
+    
+    @Version
+    private Long version;
 
     @NotNull
     @Size(min = 1)
@@ -19,7 +23,7 @@ public class Project {
 
 
     @NotNull
-    @ManyToOne(cascade = {CascadeType.PERSIST})
+    @ManyToOne(cascade = {CascadeType.MERGE}, fetch= FetchType.EAGER)
     private Enterprise enterprise;
 
     public Project() {}
@@ -54,6 +58,11 @@ public class Project {
     }
 
     public void setEnterprise(Enterprise enterprise) {
-        this.enterprise = enterprise;
+    	this.enterprise = enterprise;
     }
+
+	public Long getVersion() {
+		// TODO Auto-generated method stub
+		return version;
+	}
 }

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -34,7 +35,7 @@ public class Enterprise {
     @Size(min = 3)
     private String contactEmail;
 
-    @OneToMany(mappedBy = "enterprise")
+    @OneToMany(mappedBy = "enterprise", cascade = { CascadeType.MERGE },fetch= FetchType.EAGER)
     @JsonIgnore
     private Collection<Project> projects;
 

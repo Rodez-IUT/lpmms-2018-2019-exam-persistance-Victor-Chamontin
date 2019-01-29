@@ -1,12 +1,17 @@
 package ourbusinessproject;
 
+import org.hibernate.Session;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
+import javax.transaction.TransactionalException;
+
+import java.util.Collection;
 import java.util.List;
+import java.util.Vector;
 
 @Service
 @Transactional
@@ -19,14 +24,30 @@ public class EnterpriseProjectService {
         saveEnterprise(enterprise);
         project.setEnterprise(enterprise);
         enterprise.addProject(project);
-        entityManager.persist(project);
+        ((Session)entityManager.getDelegate()).saveOrUpdate(project);
+        //entityManager.persist(project);
         entityManager.flush();
         return project;
     }
 
     public Enterprise saveEnterprise(Enterprise enterprise) {
-        entityManager.persist(enterprise);
-        entityManager.flush();
+    	((Session)entityManager.getDelegate()).saveOrUpdate(enterprise);
+
+    	/*Collection<Project> collectionProject = enterprise.getProjects();
+    	if (collectionProject != null) {
+	    	for (Project pro : collectionProject) {
+	    		Project p = entityManager.merge(pro);
+	    		enterprise.addProject(p);
+	    	}
+    	}*/
+    	/*if(entityManager.find(Enterprise.class, enterprise.getId()) == enterprise) {
+    		Enterprise e = entityManager.merge(enterprise);
+    		enterprise = e;
+    	} else {*/
+    		
+    	//}
+    	//entityManager.persist(enterprise);
+    	entityManager.flush();
         return enterprise;
     }
 
